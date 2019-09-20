@@ -6632,7 +6632,8 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 		local arTx
 		if string.find(oName, ",") then
 			arTx = {Nx.Split (",", oName)}
-			zscale = self:GetWorldZoneScale (mapId) / 38
+		else
+		   arTx = {oName}		   
 		end
 		
 		local oX, oY, txW, txH, mode = Nx.Split (",", whxyStr)
