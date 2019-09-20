@@ -4461,7 +4461,7 @@ local function giveProfiles()
 end
 
 Nx.OptsDataSounds = {
-	"Interface\\AddOns\\Carbonite\\Snd\\QuestComplete.ogg",
+	"Interface\\AddOns\\CarboniteClassic\\Snd\\QuestComplete.ogg",
 	"Sound\\Creature\\Peon\\PeonBuildingComplete1.ogg",
 	"Sound\\Character\\Scourge\\ScourgeVocalMale\\UndeadMaleCongratulations02.ogg",
 	"Sound\\Character\\Human\\HumanVocalFemale\\HumanFemaleCongratulations01.ogg",
@@ -4472,7 +4472,7 @@ Nx.OptsDataSounds = {
 }
 
 Nx.OptsDataSoundsIDs = {
-	"Interface\\AddOns\\Carbonite\\Snd\\QuestComplete.ogg", -- Interface so no conversion needed
+	"Interface\\AddOns\\CarboniteClassic\\Snd\\QuestComplete.ogg", -- Interface so no conversion needed
 	558132,
 	542775,
 	540654,
@@ -4511,7 +4511,7 @@ function Nx.Opts:Init()
 	}
 	self.ChoicesQAreaTex = {
 		["SolidTexture"] = "Interface\\Buttons\\White8x8",
-		["HGrad"] = "Interface\\AddOns\\Carbonite\\Gfx\\Map\\AreaGrad",
+		["HGrad"] = "Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\AreaGrad",
 	}
 
 	self:Reset (true)
@@ -4671,11 +4671,11 @@ end
 
 function Nx.Opts:NXCmdGryphonsUpdate()
 	if Nx.db.profile.General.GryphonsHide then
-		MainMenuBarArtFrame.LeftEndCap:Hide()
-		MainMenuBarArtFrame.RightEndCap:Hide()
+		MainMenuBarLeftEndCap:Hide()
+		MainMenuBarRightEndCap:Hide()
 	else
-		MainMenuBarArtFrame.LeftEndCap:Show()
-		MainMenuBarArtFrame.RightEndCap:Show()
+		MainMenuBarLeftEndCap:Show()
+		MainMenuBarRightEndCap:Show()	
 	end
 end
 

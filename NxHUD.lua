@@ -99,7 +99,7 @@ function Nx.HUD:Create()
 
 	local t = but:CreateTexture()
 	t:SetAllPoints (but)
-	t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircle")
+	t:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\IconCircle")
 	but.texture = t
 	but:SetWidth (10)
 	but:SetHeight (10)
@@ -155,7 +155,7 @@ function Nx.HUD:UpdateOptions()
 	local gopts = self.GOpts
 
 	local name = Nx.db.profile.Track.AGfx
-	self.Frm.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\HUDArrow" .. name)
+	self.Frm.texture:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\HUDArrow" .. name)
 
 	local f = self.Frm
 

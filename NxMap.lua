@@ -1676,7 +1676,7 @@ function Nx.Map:InitFrames()
 				cf.texture = t
 
 				if n == 0 then
-					t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\Cont\\".."Kal"..texi)
+					t:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\Cont\\".."Kal"..texi)
 					texi = texi + 1
 				else
 					t:SetTexture ("Interface\\WorldMap\\"..mapFileName.."\\"..mapFileName..i)
@@ -2104,11 +2104,11 @@ function Nx.Map:MinimapNodeGlowInit (reset)
 
 			local t = mm:CreateTexture (nil, "BACKGROUND")
 			t:SetAllPoints()
-			t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIcons")
+			t:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\MMOIcons")
 			t:Hide()
 			local t = mm:CreateTexture (nil, "BACKGROUND")
 			t:SetAllPoints()
-			t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIconsG")
+			t:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\MMOIconsG")
 			t:Hide()
 		end
 		GlowLetter = ""
@@ -2134,7 +2134,7 @@ function Nx.Map:MinimapNodeGlowSet (letter)
 		local name, texture, active, category = GetTrackingInfo (n)
 
 		if active and category == "spell" then
-				self.MMFrm:SetBlipTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIcons" .. letter)
+				self.MMFrm:SetBlipTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\MMOIcons" .. letter)
 			break
 		end
 	end
@@ -5500,7 +5500,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 					txName = txName.."C"
 				end
 
-				f1.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\"..txName)
+				f1.texture:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\"..txName)
 
 --				Nx.prt ("#%d %.1f %.1f", i, pX, pY)
 
@@ -5699,7 +5699,7 @@ function Nx.Map:UpdatePlyrHistory()
 			local f = self:GetIconNI()
 			
 			if self:ClipFrameByMapType (f, x, y, size, size, dir) then
-				f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconCircleFade")
+				f.texture:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\IconCircleFade")
 				local a = (fadeTime - tmdif) / fadeTime * .9
 				f.texture:SetVertexColor (1, 0, 0, a)												
 			end
@@ -5851,7 +5851,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 		f.NxTip = format ("%s\n%d " .. L["yds"], s, dist * 4.575)
 
-		f.texture:SetTexture (tex or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconWayTarget")
+		f.texture:SetTexture (tex or "Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\IconWayTarget")
 	end
 
 	self.TrackDir = false
@@ -5913,7 +5913,7 @@ function Nx.Map:DrawTracking (srcX, srcY, dstX, dstY, tex, mode, name)
 
 				if self:ClipFrameByMapType (f, wx, wy, size, size, dir) then
 
-					f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconArrowGrad")
+					f.texture:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\IconArrowGrad")
 
 --					local a = n == pulse and .8 or .2
 --					f.texture:SetVertexColor (1, 1, 1, a)

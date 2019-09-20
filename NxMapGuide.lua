@@ -45,7 +45,7 @@ Nx.GuideInfo = {
 	},
 	{
 		T = L["Flight Master"],
-		Tx = "Ability_Mount_Wyvern_01",
+		Tx = "Interface\\Addons\\CarboniteClassic\\Gfx\\Map\\wyvern",
 	},
 	{
 		Name = L["Common Place"],
@@ -746,21 +746,6 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			f.Id = a
 			folder[a] = f
 		end
-	elseif folder.Name == L["Timber"] then
-		for a,b in pairs(Nx.GatherInfo["L"]) do
-			local name, tx, skill = Nx:GetGather ("L", a)
-			if not name then
-				break
-			end
-			local f = {}
-			f.Name = name
-			f.Column2 = format("Level %d", skill)
-			f.Column3 = "Lumbermill"
-			f.T = "$L" .. a
-			f.Tx = tx
-			f.Id = a
-			folder[a] = f
-		end
 	elseif folder.Name == L["Ore"] then
 		for a,b in pairs(Nx.GatherInfo["M"]) do
 			local name, tx, skill = Nx:GetGather ("M", a)
@@ -783,8 +768,7 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			cont1 = 1
 			cont2 = Map.ContCnt			
 		end
-		for cont = cont1, cont2 do		
-            Nx.prt(cont)		
+		for cont = cont1, cont2 do		            
 			for _,id in pairs(Nx.Map.MapZones[cont]) do				
 				local f = {}
 				local color, infoStr, minLvl = Map:GetMapNameDesc (id)
@@ -822,8 +806,8 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 						end
 						local f = {}
 						local numPlyrStr = numPlyr
-						if tonumber (numPlyr) == 1025 then
-							numPlyrStr = "Raid"
+						if tonumber (numPlyr) == 40 then
+							numPlyrStr = "40 Player Raid"
 						end
 						if tonumber (numPlyr) == 50 then
 							numPlyrStr = "Mythic Dungeon"
@@ -1154,8 +1138,6 @@ function Nx.Map.Guide:UpdateMapIcons()
 				longType = "Herb"
 			elseif typ == "M" then
 				longType = "Mine"
-			elseif typ == "L" then
-				longType = "Timber"
 			end
 			local fid = folder.Id
 			local data = longType and Nx:GetData (longType) or Nx.db.profile.GatherData["Misc"]
@@ -1279,7 +1261,7 @@ function Nx.Map.Guide:UpdateMapIcons()
 							local quest = Nx.Quests[qId]
 							local startName, zone, x, y, level = Quest:GetSEPos (quest["Start"])
 							local wx, wy = Map:GetWorldPos (mapId, x, y)
-							local tx = anyDaily and "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaimB" or "Interface\\AddOns\\Carbonite\\Gfx\\Map\\IconExclaim"
+							local tx = anyDaily and "Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\IconExclaimB" or "Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\IconExclaim"
 							local icon = map:AddIconPt (show and "!GQ" or "!GQC", wx, wy, level, nil, tx)
 							map:SetIconTip (icon, s)
 							icon.UDataQuestGiverD = qdata
@@ -1387,11 +1369,7 @@ function Nx.Map.Guide:UpdateMapGeneralIcons (cont, showType, hideFac, tx, name, 
 									local wx, wy = map:GetWorldPos(mapId, x, y)
 									if mapId == 625 or mapId == 627 then level = nil end -- Fixing Dalaran icons
 									local icon
-									if showType == "Lightforged Beacon" then
-										icon = map:AddIconPt (iconType, wx, wy, level, nil, "atlas:FlightMaster_Argus-TaxiNode_Neutral")
-									else
-										icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
-									end
+									icon = map:AddIconPt (iconType, wx, wy, level, nil, tx)
 									if not map:GetMapNameByID(mapId) then
 										Nx.prt("Guide Icon Err: " .. mapId)
 									end
@@ -1410,8 +1388,7 @@ end
 Nx.GuidePOI = {
 	L["Auctioneer"] .. "~Racial_Dwarf_FindTreasure",
 	L["Banker"] .. "~INV_Misc_Coin_02",
-	L["Flight Master"] .. "~Ability_Mount_Wyvern_01",
-	L["Lightforged Beacon"] .. "~INV_Alchemy_AstralAlchemistStone",
+	L["Flight Master"] .. "~Interface\\Addons\\CarboniteClassic\\Gfx\\Map\\wyvern",
 	L["Innkeeper"] .. "~Spell_Shadow_Twilight",
 	L["Mailbox"] .. "~INV_Letter_15",
 	}
@@ -1458,8 +1435,10 @@ function Nx.Map.Guide:UpdateZonePOIIcons()
 	if cont > 0 and cont <= Nx.Map.ContCnt then
 		for k, name in ipairs (Nx.GuidePOI) do
 			local showType, tx = Nx.Split ("~", name)
-			if showType and Nx.db.char.Map.ShowMailboxes then
-				tx = "Interface\\Icons\\" .. tx
+			if showType and Nx.db.char.Map.ShowMailboxes then			    
+			    if string.find(tx,"CarboniteClassic") == nil then
+					tx = "Interface\\Icons\\" .. tx
+				end
 				self:UpdateMapGeneralIcons (cont, showType, hideFac, tx, showType, "!POI", mapId)
 			end
 		end
