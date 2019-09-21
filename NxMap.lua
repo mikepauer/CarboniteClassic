@@ -3877,7 +3877,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	--
 
-	if Nx.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
+	if Nx.Map:GetMap (1).Frm.NxMap.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
 
 		local tip = format (" %s", cursorLocStr)
 		if map.Debug and winx then
@@ -4842,7 +4842,7 @@ function Nx.Map:Update (elapsed)
 			f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
 			self:ClipFrameZ (f, cX * 100, cY * 100, 16, 16, 0)
 			-- Override clipping (FIX maybe?)
-			f.texture:SetTexCoord (.56640625, .632812, .001953125, .03515625)	-- 16x16 grid (.0625 uv size)
+			f.texture:SetTexCoord (0.875, 1.0, 0.0, 0.125)	-- 16x16 grid (.0625 uv size)
 
 			self.Level = self.Level + 2
 		end
@@ -4904,7 +4904,7 @@ function Nx.Map:Update (elapsed)
 
 	-- Scan. Switch maps if needed. Do at end so we dont glitch
 
-	if Nx.Tick % self.ScanContinentsMod == 3 then
+	if Nx.Map:GetMap (1).Frm.NxMap.Tick % self.ScanContinentsMod == 3 then
 		self:ScanContinents()
 	end
 
@@ -10194,7 +10194,7 @@ end
 
 function Nx.Map.Dock:MinimapDetachFrms()
 
-	if Nx.Tick % self.UpdateMod ~= 0 then
+	if Nx.Map:GetMap (1).Frm.NxMap.Tick % self.UpdateMod ~= 0 then
 		return
 	end
 

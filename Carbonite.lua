@@ -1250,7 +1250,7 @@ function Nx:NXOnUpdate (elapsed)
 	if not Nx.Loaded or not Nx.PlayerFnd or not Nx.Initialized then
 		return
 	end
-	Nx.Tick = Nx.Tick + 1
+	Nx.Tick = Nx.Tick + 1	
 	if Nx.LootOn then
 		Nx:LootIt()
 	end
