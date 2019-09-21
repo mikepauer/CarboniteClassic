@@ -10085,7 +10085,7 @@ function Nx.Map.Dock:MinimapOwnInit()
 	local mm = _G["Minimap"]
 
 	local mmOwnerNames = {
-		"NXMiniMapBut","GameTimeFrame","TimeManagerClockButton","MiniMapWorldMapButton","MiniMapMailFrame","MiniMapTracking","MiniMapVoiceChatFrame","QueueStatusMinimapButton","MiniMapInstanceDifficulty","GarrisonLandingPageMinimapButton",
+		"NXMiniMapBut","GameTimeFrame","TimeManagerClockButton","MiniMapWorldMapButton","MiniMapMailFrame","MiniMapTracking","MiniMapVoiceChatFrame","MiniMapInstanceDifficulty",
 	}
 
 	local f = _G["MinimapBackdrop"]	-- Add so it gets ignored
