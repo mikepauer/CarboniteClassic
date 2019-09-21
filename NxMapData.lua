@@ -40,8 +40,8 @@ Map.MapInfo = {
 	[2] = {
 		Name = L["Eastern Kingdoms"],
 		FileName = "Azeroth",
-		X = 6284,
-		Y = -200,
+		X = 2000,
+		Y = -700,
 	},
 	[90] = {
 		Name = "BG",
@@ -2464,14 +2464,14 @@ Map.MiniMapBlks = {
 		Map.KalMapBlks,
 		1908,
 		19, 8,
-		 Map.MapWorldInfo[1414].X + Map.MapInfo[1].X + 2025.753921875 + 222, Map.MapWorldInfo[1414].Y + Map.MapInfo[1].Y + -0.476021875 - 324,
+		 Map.MapWorldInfo[1414].X + Map.MapInfo[1].X + 1800 + 212.52, Map.MapWorldInfo[1414].Y + Map.MapInfo[1].Y + 200 + -266.42,
 		"World\\Minimaps\\Kalimdor"
 	},
 	[2] = {
 		Map.EkMapBlks,
 		2420,
 		24, 20,
-		Map.MapWorldInfo[1415].X + Map.MapInfo[2].X -1080, Map.MapWorldInfo[1415].Y + Map.MapInfo[2].Y - 1308,
+		Map.MapWorldInfo[1415].X + Map.MapInfo[2].X + 2380, Map.MapWorldInfo[1415].Y + Map.MapInfo[2].Y + 308,
 		"World\\Minimaps\\Azeroth"
 	},
 }

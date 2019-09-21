@@ -362,15 +362,15 @@ end
 --  ************************
 ---------------------------------------------------------------------------------------
 
-function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dstY, targetType)
+function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dstY, targetType)	
 	if not Nx.db.profile.Map.RouteUse then
 		return
 	end
-
+	
 	if UnitOnTaxi ("player") then
 		return
 	end
-
+	
 	local Map = Nx.Map
 	local winfo = Map.MapWorldInfo
 
@@ -385,8 +385,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 	if srcMapId == dstMapId and tarDist < 500 / 4.575 then		-- Short travel?
 		return
-	end
-
+	end	
 	local riding = Nx.Travel:GetRidingSkill()
 
 	if IsAltKeyDown() then
@@ -412,15 +411,9 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 	self.Speed = speed
 
 	if cont1 == cont2 then
-
---		if srcMapId == 4003 or dstMapId == 4003 then		-- Dalaran?
---			return						-- Do a straight line
---		end
-
+	    
 		self.VisitedMapIds = {}
-
 		local path = {}
-
 		local node1 = {}
 		node1.MapId = srcMapId
 		node1.X = srcX
@@ -452,7 +445,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 
 						local conDist, con = self:FindConnection (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
 						local flyDist, fpath = self:FindFlight (node1.MapId, node1.X, node1.Y, node2.MapId, node2.X, node2.Y)
-
+						
 --						fpath = nil		-- Test
 
 --						Nx.prtCtrl ("%d: con %s, fly %s", n, conDist or "nil", flyDist or "nil")
@@ -475,7 +468,7 @@ function Nx.Travel:MakePath (tracking, srcMapId, srcX, srcY, dstMapId, dstX, dst
 									node1.NoSplit = true
 								end
 
-								local name = format (L["Connection: %s to %s"], GetMapNameByID(con.StartMapId), GetMapNameByID(con.EndMapId))
+								local name = format (L["Connection: %s to %s"], Nx.Map:GetMapNameByID(con.StartMapId), Nx.Map:GetMapNameByID(con.EndMapId))
 
 								local node = {}
 								node.NoSplit = true
@@ -633,7 +626,7 @@ function Nx.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 		node1.Y = t1y
 		node1.Name = name
 
-		node1.Tex = "Interface\\Icons\\Ability_Mount_Wyvern_01"
+		node1.Tex = "Interface\\Addons\\CarboniteClassic\\Gfx\\Map\\wyvern"
 		tinsert (path, node1)
 
 		local node2 = {}
@@ -642,7 +635,7 @@ function Nx.Travel:FindFlight (srcMapId, srcX, srcY, dstMapId, dstX, dstY)
 		node2.X = bt2Node.WX
 		node2.Y = bt2Node.WY
 		node2.Name = name
-		node2.Tex = "Interface\\Icons\\Ability_Mount_Wyvern_01"
+		node2.Tex = "Interface\\Addons\\CarboniteClassic\\Gfx\\Map\\wyvern"
 		tinsert (path, node2)
 
 		return bestDist, path
@@ -711,7 +704,7 @@ function Nx.Travel:FindConnection (srcMapId, srcX, srcY, dstMapId, dstX, dstY, s
 	local winfo = Nx.Map.MapWorldInfo
 
 	local srcT = winfo[srcMapId]
-	if not srcT or not srcT.Connections then
+	if not srcT or not srcT.Connections then	    
 		return
 	end
 

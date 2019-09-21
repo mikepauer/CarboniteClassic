@@ -67,67 +67,17 @@ NXMapOptsMapsDefault = 	{
 		NXInstanceMaps = true,
 		NXWorldShow = true,
 	},
-	[93] = {	-- AB
+	[1459] = {	-- AB
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[92] = {	-- WG
+	[1460] = {	-- WG
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
-	[91] = {	-- AV
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[112] = {	-- EOS
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[128] = {	-- SoA
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[169] = {	-- IC
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[275] = {	-- TBG
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[206] = {	-- TP
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[397] = {   -- EOSv2	
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,	
-	},
-	[417] = {	-- TK
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[423] = {	-- SM
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[519] = {
-		NXPlyrFollow = true,
-		NXInstanceMaps = true,
-		NXWorldShow = false,
-	},
-	[623] = {
+	[1461] = {	-- AV
 		NXPlyrFollow = true,
 		NXInstanceMaps = true,
 		NXWorldShow = false,
@@ -227,30 +177,6 @@ function Nx.Map:Init()
 end
 
 function Nx.Map:SetMapByID(zone)
-	--[[if Nx.Map:GetMap(1).MapWorldInfo and (Nx.Map:IsInstanceMap(zone) or Nx.Map:IsBattleGroundMap(zone)) then
-		Nx.CurrentSetZone = nil
-		WorldMapFrame:SetMapID(zone) 	
-		return
-	end
-	if Nx.Map.MouseOver then
-		if Nx.Map.MouseIsOverMap then
-			zone = Nx.Map.MouseIsOverMap
-			Nx.Map.RMapId = zone
-		else
-			Nx.Map.RMapId = zone
-			return
-		end
-	else
-		Nx.Map.RMapId = zone
-	end
-	if not Nx.CurrentSetZone or Nx.CurrentSetZone ~= zone then
-		if zone then
-			Nx.CurrentSetZone = zone
-			if not WorldMapFrame:IsShown() then 
-				WorldMapFrame:SetMapID(zone) 
-			end
-		end
-	end]]--
 	if not WorldMapFrame:IsShown() and WorldMapFrame.ScrollContainer.zoomLevels then 
 		WorldMapFrame:SetMapID(zone) 
 	end
@@ -559,8 +485,6 @@ function Nx.Map:Create (index)
 	m.MapsDrawnOrder = {}					-- [index (1st is newest)] = map id
 	m.MapsDrawnFade = {}					-- [map id] = fade
 	m.MiniBlks = Nx.db.profile.Map.DetailSize
-	m.ArchAlpha = opts.NXArchAlpha
-	m.QuestAlpha = opts.NXQuestAlpha
 	m.BackgndAlphaFade = opts.NXBackgndAlphaFade
 	m.BackgndAlphaFull = opts.NXBackgndAlphaFull
 	m.BackgndAlpha = 0					-- Current value
@@ -613,19 +537,9 @@ function Nx.Map:Create (index)
 	win:CreateButtons (true)
 	win:InitLayoutData (nil, -.0001, -.4, -.19, -.3, 1)
 
-	win:InitLayoutData ("91", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("93", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("519", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("112", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("397", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("169", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("423", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("128", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("417", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("275", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("206", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("92", -.0001, -.4, -.19, -.3, 1)
-	win:InitLayoutData ("623", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("1459", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("1460", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("1461", -.0001, -.4, -.19, -.3, 1)
 
 	win:SetUser (m, self.OnWin)
 	win.UserUpdateFade = m.WinUpdateFade
@@ -784,13 +698,6 @@ function Nx.Map:Create (index)
 	local item = showMenu:AddItem (0, L["Show Mining Locations"], func, m)
 	m.MenuIShowMine = item
 	item:SetChecked (Nx.db.char.Map, "ShowGatherM")
-	local item = showMenu:AddItem(0, L["Show Timber Locations"], func, m)
-	m.MenuIShowTimber = item
-	item:SetChecked (Nx.db.char.Map, "ShowGatherL")
-	local item = showMenu:AddItem (0, L["Show Artifact Locations"], func, m)
---	m.MenuIShowArt = item
-	item:SetChecked (Nx.db.char.Map, "ShowGatherA")
-
 
 	local function func (self)
 		self.Guide.POIDraw = nil
@@ -1136,32 +1043,6 @@ function Nx.Map:Create (index)
 
 	m:InitFrames()
 
-	-- Test
-
---[[
-	m:InitIconType ("Test", nil, "Interface\\TargetingFrame\\TargetDead", 64, 64)
-
-	for i = 1, 100, .2 do
-		m:AddIconData ("Test", i, 30, 0)
-	end
---]]
-
---[[
-	m:InitIconType ("Test2", nil, 64, 64)
-
-	for i = 1, 100, .2 do
-		m:AddIconData ("Test2", i, 10, "00ff00")
-	end
---]]
-
---[[
-	m:InitIconType ("TestZR", "ZR")
-
-	for i = 1, 10, 2 do
-		m:AddIconRect ("TestZR", i, 5, i+1, 6, "00ff0080")
-	end
---]]
-
 	Nx.Map.RMapId = 9000		-- Safe default
 	Nx.Map.UpdateMapID = 9000
 
@@ -1187,14 +1068,6 @@ function Nx.Map:Create (index)
 
 	MapIShow = Nx:ScheduleTimer(func, 1, m)
 
-	-- Show Quest Log - restore World tooltip
-	--[[hooksecurefunc ("ShowUIPanel", function(...) 
-		WorldMap_RestoreTooltip()
-	end)
-	hooksecurefunc ("HideUIPanel", function(...) 
-		WorldMap_HijackTooltip(m.Frm)
-	end)]]--
-	
 	f:SetScript ("OnUpdate", self.OnUpdate)
 	
 	return m
@@ -1495,14 +1368,6 @@ end
 function Nx.Map:UpdateWorldMap()
 
 	local f = self.WorldMapFrm
-
-	for factionIndex = 1, GetNumFactions() do
-		local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)
-		if (name == L["Operation: Shieldwall"]) or (name == L["Dominance Offensive"]) then
-			self.MapWorldInfo[857].Overlay = "krasarang_terrain1"
-		end
-	end
-
 	if f then
 
 		if self.StepTime ~= 0 or self.Scrolling or IsShiftKeyDown() then
@@ -9130,63 +8995,62 @@ function Nx.Map:InitTables()
 	Nx.ZoneConnections = Nx["ZoneConnections"] or Nx.ZoneConnections	-- Copy unmunged data to munged data
 
 	-- Init zone connections
-		for n = 0, 1999 do
-			local mapId = n
-			local winfo = worldInfo[mapId]
-			if not winfo then
-				break
-			end
-			local cons = {}
-			winfo.Connections = cons
-			if winfo.Short then
-
-			end
-			for _, str in ipairs (Nx.ZoneConnections) do
-
-				local flags, conTime, name1, z1, x1, y1, name2, z2, x2, y2 = Nx.Split ("|",str)
-
-				local mapId1 = z1
-				local mapId2 = z2
-
-				if not (mapId1 and mapId2) then
---					Nx.prt ("zone conn err %s to %s", z1 - 35, z2 - 35)
-					conTime = 0
+		for n = 0, self.ContCnt do
+			for _, id in pairs (Nx.Map.MapZones[n]) do				
+				local mapId = id				
+				local winfo = worldInfo[mapId]
+				if not winfo then					
+					break
 				end
+				local cons = {}
+				winfo.Connections = cons
+				if winfo.Short then
 
-				if conTime == 1 and (mapId == mapId1 or (mapId == mapId2 and bit.band (flags, 1) == 1)) then
+				end
+				for _, str in ipairs (Nx.ZoneConnections) do					
+					local flags, conTime, name1, z1, x1, y1, name2, z2, x2, y2 = Nx.Split ("|",str)
+					
+					local mapId1 = tonumber(z1)
+					local mapId2 = tonumber(z2)
+					conTime = tonumber(conTime)
+					flags = tonumber(flags)
+					
+					if not (mapId1 and mapId2) then
+	--					Nx.prt ("zone conn err %s to %s", z1 - 35, z2 - 35)
+						conTime = 0
+					end					
+					if conTime == 1 and (mapId == mapId1 or (mapId == mapId2 and bit.band (flags, 1) == 1)) then					
+						local cont1 = self:IdToContZone (mapId1)
+						local cont2 = self:IdToContZone (mapId2)
 
-					local cont1 = self:IdToContZone (mapId1)
-					local cont2 = self:IdToContZone (mapId2)
+						if cont1 == cont2 then						
+							if mapId == mapId2 then		-- Swap?
+								mapId1, mapId2 = mapId2, mapId1
+								x1, y1, x2, y2 = x2, y2, x1, y1
+							end
 
-					if cont1 == cont2 then
+							local zcons = cons[mapId2] or {}
+							cons[mapId2] = zcons
 
-						if mapId == mapId2 then		-- Swap?
-							mapId1, mapId2 = mapId2, mapId1
-							x1, y1, x2, y2 = x2, y2, x1, y1
+							if x1 ~= 0 and y1 ~= 0 then	-- Specific connection? Else connects anywhere
+
+								local con = {}
+								tinsert (zcons, con)
+
+								x1, y1 = self:GetWorldPos (mapId1, x1, y1)
+								x2, y2 = self:GetWorldPos (mapId2, x2, y2)							
+								con.StartMapId = mapId1
+								con.StartX = x1
+								con.StartY = y1
+								con.EndMapId = mapId2
+								con.EndX = x2
+								con.EndY = y2
+								con.Dist = ((x1 - x2) ^ 2 + (y1 - y2) ^ 2) ^ .5
+							end
+
+	--					else
+	--						Nx.prt ("%s to %s", mapId1, mapId2)
 						end
-
-						local zcons = cons[mapId2] or {}
-						cons[mapId2] = zcons
-
-						if x1 ~= 0 and y1 ~= 0 then	-- Specific connection? Else connects anywhere
-
-							local con = {}
-							tinsert (zcons, con)
-
-							x1, y1 = self:GetWorldPos (mapId1, x1, y1)
-							x2, y2 = self:GetWorldPos (mapId2, x2, y2)
-
-							con.StartMapId = mapId1
-							con.StartX = x1
-							con.StartY = y1
-							con.EndMapId = mapId2
-							con.EndX = x2
-							con.EndY = y2
-							con.Dist = ((x1 - x2) ^ 2 + (y1 - y2) ^ 2) ^ .5
-						end
-
---					else
---						Nx.prt ("%s to %s", mapId1, mapId2)
 					end
 				end
 			end

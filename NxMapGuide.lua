@@ -49,7 +49,7 @@ Nx.GuideInfo = {
 	},
 	{
 		Name = L["Common Place"],
-		Tx = "INV_Misc_Map02",
+		Tx = "Interface\\Addons\\CarboniteClassic\\Gfx\\Map\\map02",
 		{
 			T = L["Auctioneer"],
 			Tx = "Racial_Dwarf_FindTreasure",
@@ -153,18 +153,6 @@ Nx.GuideInfo = {
 			Tx = "Trade_Herbalism",
 		},
 		{
-			Pre = L["Inscription"],
-			Name = L["Trainer"],
-			T = "^P",
-			Tx = "INV_Inscription_Tradeskill01",
-		},
-		{
-			Pre = L["Jewelcrafting"],
-			Name = L["Trainer"],
-			T = "^P",
-			Tx = "INV_Misc_Gem_02",
-		},
-		{
 			Pre = L["Leatherworking"],
 			Name = L["Trainer"],
 			T = "^P",
@@ -205,12 +193,6 @@ Nx.GuideInfo = {
 			Name = L["Trainer"],
 			T = "^S",
 			Tx = "Trade_Fishing",
-		},
-		{
-			Pre = L["Flying"],
-			Name = L["Trainer"],
-			T = "^S",
-			Tx = "inv_scroll_11",
 		},
 		{
 			Pre = L["Riding"],
@@ -277,31 +259,6 @@ Nx.GuideInfo = {
 			Map = 2
 		},
 	},
-	{
-		Name = L["Trade Skill"],
-		Tx = "INV_Misc_Note_04",
-		{
-			T = L["Alchemy Lab"],
-			Tx = "INV_Potion_06",
-		},
-		{
-			T = L["Altar Of Shadows"],
-			Tx = "INV_Fabric_Felcloth_Ebon",
-		},
-		{
-			T = L["Mana Loom"],
-			Tx = "INV_Fabric_Netherweave_Bolt_Imbued",
-		},
-		{
-			T = L["Grace Loom"],
-			Tx = "inv_tailoring_70_silkweaveimbued",
-		},
-		{
-			T = L["Moonwell"],
-			Tx = "INV_Fabric_MoonRag_Primal",
-		},
-	},
-
 }
 
 Nx.Map.Guide.FindType = nil
@@ -686,20 +643,12 @@ function Nx.Map.Guide:PatchFolder (folder, parent)
 			["Blasted Lands"] = "Spell_Arcane_TeleportStonard",
 			["Darnassus"] = "Spell_Arcane_TeleportDarnassus",
 			["Teldrassil"] = "Spell_Arcane_TeleportDarnassus",
-			["The Exodar"] = "Spell_Arcane_TeleportExodar",
-			["Hellfire Peninsula"] = "Spell_Arcane_TeleportStonard",
 			["Ironforge"] = "Spell_Arcane_TeleportIronForge",
-			["Isle of Quel'Danas"] = "Achievement_Zone_IsleOfQuelDanas",
 			["Lake Wintergrasp"] = "Ability_WIntergrasp_rank1",
-			["Orgrimmar"] = "Spell_Arcane_TeleportOrgrimmar",
-			["Shattrath"] = "Spell_Arcane_TeleportShattrath",
-			["Silvermoon City"] = "Spell_Arcane_TeleportSilvermoon",
+			["Orgrimmar"] = "Spell_Arcane_TeleportOrgrimmar",			
 			["Stormwind City"] = "Spell_Arcane_TeleportStormWind",
 			["Thunder Bluff"] = "Spell_Arcane_TeleportThunderBluff",
 			["Undercity"] = "Spell_Arcane_TeleportUnderCity",
-			["Dalaran"] = "Spell_Arcane_TeleportDalaran",
-			["Shattrath City"] = "Spell_Arcane_TeleportShattrath",
-			["The Jade Forest"] = "Spell_Arcane_TeleportShattrath",
 		}
 		for i, str in ipairs (Nx.ZoneConnections) do
 			local flags, conTime, name1, mapId1, x1, y1, level1, name2, mapId2, x2, y2, level2 = Nx.Map:ConnectionUnpack (str)
@@ -1089,7 +1038,10 @@ function Nx.Map.Guide:UpdateList (list, pathI, listSide)
 								end
 							end
 						end
-						tx = "Interface\\Icons\\" .. tx
+						if string.find(tx,"CarboniteClassic") == nil then
+							tx = "Interface\\Icons\\" .. tx
+						end
+						
 						local tip = folder.Link and format ("!%s^%s", folder.Link, folder.Tip or "") or folder.Tip
 						list:ItemSetButton ("Guide", pressed, tx, tip)
 					end
@@ -1512,8 +1464,12 @@ function Nx.Map.Guide:UpdateTravelIcons (hideFac)
 				mapId1, x1, y1, name1, level1 = mapId2, x2, y2, name2, level2
 			end
 			local wx, wy = Map:GetWorldPos (mapId1, x1, y1)
-			if mapId1 == 321 then level1 = (level1 or 0) + 1 end -- Fixing Orgimmar icons
-			local icon = map:AddIconPt ("!POI", wx, wy, level1, nil, "Interface\\Icons\\" .. (folder.Tx or "INV_Misc_Note_02"))
+			local icon
+			if string.find(folder.Tx,"CarboniteClassic") == nil then
+				icon = map:AddIconPt ("!POI", wx, wy, level1, nil, "Interface\\Icons\\" .. (folder.Tx or "INV_Misc_Note_02"))
+			else
+				icon = map:AddIconPt ("!POI", wx, wy, level1, nil, folder.Tx)
+			end								
 			map:SetIconTip (icon, format ("%s\n%s %.1f %.1f", name1, map:GetMapNameByID(mapId1), x1, y1))
 		end
 	end
@@ -1524,7 +1480,7 @@ function Nx.Map.Guide:UpdateTravelIcons (hideFac)
 				for n, con in ipairs (zcon) do
 					local wx, wy = con.StartX, con.StartY
 					local icon = map:AddIconPt ("!POI", wx, wy, 0, nil, "Interface\\Icons\\Spell_Nature_FarSight")
-					map:SetIconTip (icon, L["Connection to"] .. " " .. Nx.MapIdToName[con.EndMapId])
+					map:SetIconTip (icon, L["Connection to"] .. " " .. Nx.Map:GetMapNameByID(con.EndMapId))
 					local wx, wy = con.EndX, con.EndY
 					local icon = map:AddIconPt ("!POI", wx, wy, 0, nil, "Interface\\Icons\\Spell_Nature_FarSight")
 				end
@@ -2514,12 +2470,6 @@ Nx.Map.Guide.ItemCats = {
 			Item = -9,
 		},
 		{
-			Name = "Jewelcrafting",
-			T = "Jewelcrafting",
-			Tx = "INV_Misc_Gem_02",
-			Item = -9,
-		},
-		{
 			Name = "Leatherworking",
 			T = "Leatherworking",
 			Tx = "INV_Misc_ArmorKit_17",
@@ -2724,11 +2674,9 @@ Nx.Map.Guide.ItemStatRequiredSkill = {
 	"Engineering",
 	"First Aid",
 	"Fishing",
-	"Herbalism",
-	"Jewelcrafting",
+	"Herbalism",	
 	"Leatherworking",
-	"Mining",
-	"Inscription",
+	"Mining",	
 	"Riding",
 	"Tailoring"
 }
@@ -2777,7 +2725,7 @@ Nx.Map.Guide.ItemTypeNames = {
 	"Miscellaneous^12",
 	"Miscellaneous^23",
 	"Alchemy","Blacksmithing","Cooking","Enchanting","Engineering",
-	"Jewelcrafting","Leatherworking","Tailoring",
+	"Leatherworking","Tailoring",
 	"Food",
 	"Elixir",
 	"Flask",
