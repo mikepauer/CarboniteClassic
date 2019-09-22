@@ -1115,15 +1115,6 @@ function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)
 				Nx.UEvents:AddMine (Nx.GatherTarget)
 				Nx.GatherTarget = nil
 			end
-		elseif arg2 == L["Searching for Artifacts"] then
-			Nx.UEvents:AddOpen ("Art", arg4)
-		elseif arg2 == L["Extract Gas"] then
-			Nx.UEvents:AddOpen ("Gas", L["Extract Gas"])
-		elseif Nx:IsGathering(arg2) == L["Logging"] then
-			Nx.GatherTarget = Nx.TooltipLastText
-			if Nx.GatherTarget then
-				Nx.UEvents:AddTimber(Nx.GatherTarget)
-			end
 		elseif arg2 == L["Opening"] or arg2 == L["Opening - No Text"] then
 			Nx.GatherTarget = Nx.TooltipLastText
 
@@ -2870,11 +2861,6 @@ Nx.GatherCache.L = {}
 Nx.GatherCache.H = {}
 Nx.GatherCache.M = {}
 function Nx:IsGathering(nodename)
-	if #Nx.GatherCache.L == 0 then
-		for k, v in ipairs (Nx.GatherInfo["L"]) do
-			Nx.GatherCache.L[v[3]] = true
-		end
-	end
 	if #Nx.GatherCache.H == 0 then
 		for k, v in ipairs (Nx.GatherInfo["H"]) do
 			Nx.GatherCache.H[v[3]] = true
@@ -2885,7 +2871,6 @@ function Nx:IsGathering(nodename)
 			Nx.GatherCache.M[v[3]] = true
 		end
 	end
-	if Nx.GatherCache.L[nodename] then return L["Logging"] end
 	if Nx.GatherCache.H[nodename] then return "Herb Gathering" end
 	if Nx.GatherCache.M[nodename] then return L["Mining"] end
 end
