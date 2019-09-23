@@ -790,10 +790,8 @@ function Nx:SetTooltipText (str)
 		Nx.Item:ShowTooltip (str, true)
 		return
 
-	elseif strbyte (str) == 35 then		-- # (enchant)
-
-		str = strsub (str, 2)
---		Nx.prt (str)
+	elseif strbyte (str) == 35 then		-- # (enchant)		
+		str = strsub (str, 2)		
 		GameTooltip:SetHyperlink (str)
 		GameTooltip_ShowCompareItem()
 		return

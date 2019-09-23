@@ -1730,7 +1730,7 @@ function Nx.Map:MinimapOwnInit()
 	self.MMAlphaDelay = 100
 
 	mm:SetParent (self.Frm)	
-	self.MMFrm:SetPOIArrowTexture("")
+	self.MMFrm:SetPOIArrowTexture("Interface\\Addons\\CarboniteClassic\\Gfx\\Map\\POIArrowTexture")
 	mm:SetScript ("OnMouseDown", self.MinimapOnMouseDown)
 	mm:SetScript ("OnMouseUp", self.MinimapOnMouseUp)
 	mm:SetScript ("OnEnter", self.MinimapOnEnter)
