@@ -1774,7 +1774,7 @@ function Nx.Com:UpdatePlyrIcons (info, map, iconName)
 					txName = txName .. "C"
 				end
 
-				f.texture:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\"..txName)
+				f.texture:SetTexture ("Interface\\AddOns\\CarboniteClassic\\Gfx\\Map\\"..txName)
 
 				if alt then
 					-- tStr has \n
